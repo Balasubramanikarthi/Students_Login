@@ -1,0 +1,16 @@
+﻿@model Students_Login.Models.User
+
+<h2>Login</h2>
+
+<form method="post">
+    <label>Username</label><br />
+    <input asp-for="Username" /><br /><br />
+
+    <label>Password</label><br />
+    <input asp-for="Password" type="password" /><br /><br />
+
+    <button type="submit">Login</button>
+</form>
+
+<p style="color:red">@ViewBag.Message</p>
+
