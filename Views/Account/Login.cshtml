@@ -1,16 +1,45 @@
-﻿@model Students_Login.Models.User
+﻿@{
+    ViewData["Title"] = "Login";
+}
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
 
-<form method="post">
-    <label>Username</label><br />
-    <input asp-for="Username" /><br /><br />
+        <form method="post">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required />
+            </div>
 
-    <label>Password</label><br />
-    <input asp-for="Password" type="password" /><br /><br />
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required />
+            </div>
 
-    <button type="submit">Login</button>
-</form>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 
-<p style="color:red">@ViewBag.Message</p>
+    <!-- Popup Messages -->
+    @if (ViewBag.LoginSuccess != null && ViewBag.LoginSuccess == true)
+    {
+        <script>
+            alert("Login Successful!");
+            window.location.href = "https://localhost:7035/Students/Index?auth=true";
+        </script>
+    }
 
+    @if (ViewBag.Error != null)
+    {
+        <script>
+            alert("@ViewBag.Error");
+        </script>
+    }
+</body>
+</html>

@@ -8,7 +8,7 @@ namespace SimpleLoginApp.Controllers
     public class AccountController : Controller
     {
         private readonly AppDbContext _context;
-
+        
         public AccountController(AppDbContext context)
         {
             _context = context;
@@ -20,23 +20,22 @@ namespace SimpleLoginApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public IActionResult Login(string username, string password)
         {
-            var result = _context.Users
-                .FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
+            var user = _context.Users
+                .FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            if (result != null)
+            if (user != null)
             {
-                return RedirectToAction("Welcome");
+                // Pass success flag to the view
+                ViewBag.LoginSuccess = true;
+                return View(); // Stay on login view to show popup
             }
 
-            ViewBag.Message = "Invalid Username or Password";
+            ViewBag.Error = "Login Failed! Invalid username or password.";
             return View();
         }
 
-        public IActionResult Welcome()
-        {
-            return View();
-        }
+
     }
 }
